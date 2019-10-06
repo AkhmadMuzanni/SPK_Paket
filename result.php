@@ -1,8 +1,23 @@
+<?php 
+  session_start();
+  require_once('db.php');
+  $sql="SELECT idRule, idVariabel, idKategori, idKategoriHasil FROM ruledetails JOIN rules on ruledetails.idRule = rules.id ";
+
+  $data_responden = array(); 
+
+  if ($result=mysqli_query($link,$sql)){
+    while ($row=mysqli_fetch_row($result)){
+      array_push($data_responden, array($row[0]));
+    }
+  }
+
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>eBusiness Bootstrap Template</title>
+  <title>SPK Paket</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -65,7 +80,7 @@
 									</button>
                 <!-- Brand -->
                 <a class="navbar-brand page-scroll sticky-logo" href="index.html">
-                  <h1><span>e</span>Business</h1>
+                  <h1>SPK Paket</h1>
                   <!-- Uncomment below if you prefer to use an image logo -->
                   <!-- <img src="img/logo.png" alt="" title=""> -->
 								</a>
@@ -177,42 +192,42 @@
         </div> -->
 
         <div>
-          <form>
+          <form method="post" action="index.php">
             <div class="form-row">
               <div class="col-md-6">
                   <div class="form-group">
-                    <label for="inputAddress">Nama Narapidana</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Nama">
+                    <label for="inputNama">Nama Narapidana</label>
+                    <input type="text" class="form-control" id="inputNama" name="inputNama" placeholder="Nama" >
                   </div>
               </div>
               <div class="col-md-6">
                   <div class="form-group">
-                      <label for="inputAddress">Lama Vonis</label>
-                      <input type="number" class="form-control" id="inputAddress" placeholder="Lama Vonis (dalam tahun)">
+                      <label for="inputVonis">Lama Vonis</label>
+                      <input type="number" class="form-control" id="inputVonis" name="inputVonis" placeholder="Lama Vonis (dalam tahun)">
                   </div>  
 
               </div>
               <div class="form-row">
                   <div class="col-md-6">
                       <div class="form-group">
-                        <label for="inputAddress">Pendidikan Terakhir</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Pilih Pendidikan Terakhir</option>
-                            <option>Tidak Tamat SD</option>
-                            <option>SD/MI sederajat</option>
-                            <option>SMP/MTs sederajat</option>
-                            <option>SMA/MA sederajat</option>
-                            <option>Diploma</option>
-                            <option>S1</option>
-                            <option>S2</option>
-                            <option>S3</option>
+                        <label for="inputPendidikan">Pendidikan Terakhir</label>
+                        <select class="form-control" id="inputPendidikan" name="inputPendidikan">
+                            <option value="0">Pilih Pendidikan Terakhir</option>
+                            <option value="1">Tidak Tamat SD</option>
+                            <option value="2">SD/MI sederajat</option>
+                            <option value="3">SMP/MTs sederajat</option>
+                            <option value="4">SMA/MA sederajat</option>
+                            <option value="6">Diploma</option>
+                            <option value="7">S1</option>
+                            <option value="8">S2</option>
+                            <option value="9">S3</option>
                           </select>
                       </div>
                   </div>
                   <div class="col-md-6">
                       <div class="form-group">
-                          <label for="inputAddress">Umur</label>
-                          <input type="number" class="form-control" id="inputAddress" placeholder="Umur (dalam tahun)">
+                          <label for="inputUmur">Umur</label>
+                          <input type="number" class="form-control" id="inputUmur" name="inputUmur" placeholder="Umur (dalam tahun)">
                       </div>  
     
                   </div>
@@ -264,120 +279,67 @@
   <!-- Start Service area -->
   <div id="services" class="services-area area-padding">
     <div class="container">
+    <div class="section-headline services-head text-center">
+            <h2>Hasil Rekomendasi</h2>
+          </div>
+          <br/>
       <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="section-headline services-head text-center">
-            <h2>Our Services</h2>
-          </div>
-        </div>
-      </div>
-      <div class="row text-center">
-        <div class="services-contents">
-          <!-- Start Left services -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="about-move">
-              <div class="services-details">
-                <div class="single-services">
-                  <a class="services-icon" href="#">
-											<i class="fa fa-code"></i>
-										</a>
-                  <h4>Expert Coder</h4>
-                  <p>
-                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                  </p>
-                </div>
-              </div>
-              <!-- end about-details -->
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="about-move">
-              <div class="services-details">
-                <div class="single-services">
-                  <a class="services-icon" href="#">
-											<i class="fa fa-camera-retro"></i>
-										</a>
-                  <h4>Creative Designer</h4>
-                  <p>
-                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                  </p>
-                </div>
-              </div>
-              <!-- end about-details -->
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <!-- end col-md-4 -->
-            <div class=" about-move">
-              <div class="services-details">
-                <div class="single-services">
-                  <a class="services-icon" href="#">
-											<i class="fa fa-wordpress"></i>
-										</a>
-                  <h4>Wordpress Developer</h4>
-                  <p>
-                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                  </p>
-                </div>
-              </div>
-              <!-- end about-details -->
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <!-- end col-md-4 -->
-            <div class=" about-move">
-              <div class="services-details">
-                <div class="single-services">
-                  <a class="services-icon" href="#">
-											<i class="fa fa-camera-retro"></i>
-										</a>
-                  <h4>Social Marketer </h4>
-                  <p>
-                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                  </p>
-                </div>
-              </div>
-              <!-- end about-details -->
-            </div>
-          </div>
-          <!-- End Left services -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <!-- end col-md-4 -->
-            <div class=" about-move">
-              <div class="services-details">
-                <div class="single-services">
-                  <a class="services-icon" href="#">
-											<i class="fa fa-bar-chart"></i>
-										</a>
-                  <h4>Seo Expart</h4>
-                  <p>
-                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                  </p>
-                </div>
-              </div>
-              <!-- end about-details -->
-            </div>
-          </div>
-          <!-- End Left services -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <!-- end col-md-4 -->
-            <div class=" about-move">
-              <div class="services-details">
-                <div class="single-services">
-                  <a class="services-icon" href="#">
-											<i class="fa fa-ticket"></i>
-										</a>
-                  <h4>24/7 Support</h4>
-                  <p>
-                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                  </p>
-                </div>
-              </div>
-              <!-- end about-details -->
+      <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="well-left">
+            <div class="single-well">
+              <a href="#">
+								  <img src="img/about/1.jpg" alt="">
+								</a>
             </div>
           </div>
         </div>
-      </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="form-group">
+          <label for="outputNama">Nama Narapidana</label>
+          <input disabled type="text" class="form-control" id="outputNama" placeholder="Nama" value="<?php if(isset($_POST["inputNama"])){ echo $_POST["inputNama"];} ?>">
+        </div>
+        <div class="form-group">
+          <label for="outputVonis">Lama Vonis</label>
+          <input disabled type="text" class="form-control" id="outputVonis" placeholder="Lama Vonis" value="<?php if(isset($_POST["inputVonis"])){ echo $_POST["inputVonis"];} ?>">
+        </div>
+        <div class="form-group">
+          <label for="outputPendidikan">Pendidikan Terakhir</label>
+          <input disabled type="text" class="form-control" id="outputPendidikan" placeholder="Pendidikan" value=
+          <?php 
+          if(isset($_POST["inputPendidikan"])){ 
+            if($_POST["inputPendidikan"] == "1"){
+              echo "\"Belum Tamat SD\"";
+            } else if($_POST["inputPendidikan"] == "1"){
+              echo "\"SD/MI sederajat\"";
+            } else if($_POST["inputPendidikan"] == "2"){
+              echo "\"SMP/Mts sederajat\"";
+            } else if($_POST["inputPendidikan"] == "3"){
+              echo "\"SMA/MA sederajat\"";
+            } else if($_POST["inputPendidikan"] == "4"){
+              echo "\"Diploma\"";
+            } else if($_POST["inputPendidikan"] == "5"){
+              echo "\"S1\"";
+            } else if($_POST["inputPendidikan"] == "6"){
+              echo "\"S2\"";
+            } else if($_POST["inputPendidikan"] == "7"){
+              echo "\"S3\"";
+            } else {
+              echo "\"-\"";
+            }
+          } 
+          ?>
+          >
+        </div>
+        <div class="form-group">
+          <label for="outputUmur">Umur</label>
+          <input disabled type="text" class="form-control" id="outputUmur" placeholder="Umur" value="<?php if(isset($_POST["inputUmur"])){ echo $_POST["inputUmur"];} ?>">
+        </div>
+        <div class="form-group">
+          <label for="outputPaket">Rekomendasi Paket</label>
+          <input disabled type="text" class="form-control" id="outputPaket" placeholder="Paket">
+        </div>
+        </div>
+      </div>      
     </div>
   </div>
   <!-- End Service area -->
@@ -1368,6 +1330,7 @@
   <script src="contactform/contactform.js"></script>
 
   <script src="js/main.js"></script>
+  <?php unset($_POST);?>
 </body>
 
 </html>
