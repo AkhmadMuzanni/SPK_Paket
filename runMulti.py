@@ -10,6 +10,7 @@ import skfuzzy as fuzzy
 import matplotlib.pyplot as plot
 import mysql.connector as ms
 import pandas as pd
+from datetime import datetime
 
 def getKategori():    
     conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
@@ -201,52 +202,55 @@ def main(value_var_i):
         
     idxMax = 0
     
-    paket = fuzzy.defuzz(x_var_d, aggregated, 'centroid')
-    
-    result_f = []
-    tempMax = 0
-    
-    for i in range(len(fuzzy_f_d)):
-        result_f.append(fuzzy.interp_membership(x_var_d, fuzzy_f_d[i], paket))
-        if(result_f[i] > tempMax):
-            tempMax = result_f[i]
-            idxMax = i
-
 # =============================================================================
-#     if (aggregated.sum() != 0):
-#         paket = fuzzy.defuzz(x_var_d, aggregated, 'centroid')
+#     paket = fuzzy.defuzz(x_var_d, aggregated, 'centroid')
 #     
-#         result_f = []
-#         tempMax = 0
-#         
-#         for i in range(len(fuzzy_f_d)):
-#             result_f.append(fuzzy.interp_membership(x_var_d, fuzzy_f_d[i], paket))
-#             if(result_f[i] > tempMax):
-#                 tempMax = result_f[i]
-#                 idxMax = i
-#     else: # Untuk Catch Defuzzification Error
-#         idxMax = 0
+#     result_f = []
+#     tempMax = 0
+#     
+#     for i in range(len(fuzzy_f_d)):
+#         result_f.append(fuzzy.interp_membership(x_var_d, fuzzy_f_d[i], paket))
+#         if(result_f[i] > tempMax):
+#             tempMax = result_f[i]
+#             idxMax = i
 # =============================================================================
+    #print aggregated.sum()
+
+    if (aggregated.sum() != 0):
+        paket = fuzzy.defuzz(x_var_d, aggregated, 'centroid')
+    
+        result_f = []
+        tempMax = 0
+        
+        for i in range(len(fuzzy_f_d)):
+            result_f.append(fuzzy.interp_membership(x_var_d, fuzzy_f_d[i], paket))
+            if(result_f[i] > tempMax):
+                tempMax = result_f[i]
+                idxMax = i
+    else: # Untuk Catch Defuzzification Error
+        idxMax = 0
         
 
     #print("Hasil Rekomendasi = " + kategori_var_d[idxMax])
     #return kategori_var_d[idxMax]
     return idxMax
 
-print main([5, 2, 34])
-df = pd.read_excel('ContohData1.xlsx')
-valuesExcel = df.values
-
-for i in range(len(valuesExcel)):
-    valuesExcel[i][4] = main([valuesExcel[i][1], valuesExcel[i][2]-1, valuesExcel[i][3]])
-    print valuesExcel[i][4]
-
-
-data=valuesExcel[:,1:]
-
-dfResult = pd.DataFrame(data=valuesExcel[:,1:])
-dfResult.to_excel('Result.xlsx', index=False)
+def run(input_file):
+    df = pd.read_excel(input_file)
+    valuesExcel = df.values
     
-#print main([valueExcel[1], valueExcel[2], valueExcel[3]])
-#print (df)
+    for i in range(len(valuesExcel)):
+        valuesExcel[i][4] = main([valuesExcel[i][1], valuesExcel[i][2]-1, valuesExcel[i][3]])
+        #print valuesExcel[i][4]
     
+    data=valuesExcel[:,1:]
+    now = datetime.now()
+    dt_string = now.strftime("%d%m%Y_%H%M%S")
+    dfResult = pd.DataFrame(data=valuesExcel[:,1:])
+    
+    resultFilename = 'result/result_'+dt_string+'.xlsx'
+    
+    dfResult.to_excel(resultFilename, index=False)
+    return "/"+resultFilename
+
+#run('ContohData1.xlsx')
