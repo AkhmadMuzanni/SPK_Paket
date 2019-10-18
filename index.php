@@ -20,7 +20,7 @@ if (isset($_POST["inputPendidikan"])) {
   } else if ($_POST["inputPendidikan"] == "2") {
     $pendidikan = 0;
   } else if ($_POST["inputPendidikan"] == "3") {
-    $pendidikan = 1;
+    $pendidikan = 0;
   } else if ($_POST["inputPendidikan"] == "4") {
     $pendidikan = 1;
   } else if ($_POST["inputPendidikan"] == "5") {
@@ -151,7 +151,7 @@ if (isset($_POST["inputNama"])) {
   <div id="home" class="slider-area">
     <div class="bend niceties preview-2">
       <div id="ensign-nivoslider" class="slides">
-        <img src="img/slider/slider1.jpg" alt="" title="#slider-direction-1" />
+        <img src="img/slider/counter2.jpg" alt="" title="#slider-direction-1" />
         <img src="img/slider/slider2.jpg" alt="" title="#slider-direction-2" />
         <img src="img/slider/slider3.jpg" alt="" title="#slider-direction-3" />
       </div>
@@ -223,74 +223,84 @@ if (isset($_POST["inputNama"])) {
                 </div>
 
               </div>
-              <div class="form-row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="inputPendidikan">Pendidikan Terakhir</label>
-                    <select class="form-control" id="inputPendidikan" name="inputPendidikan">
-                      <option value="0">Pilih Pendidikan Terakhir</option>
-                      <option value="1">Tidak Tamat SD</option>
-                      <option value="2">SD/MI sederajat</option>
-                      <option value="3">SMP/MTs sederajat</option>
-                      <option value="4">SMA/MA sederajat</option>
-                      <option value="6">Diploma</option>
-                      <option value="7">S1</option>
-                      <option value="8">S2</option>
-                      <option value="9">S3</option>
-                    </select>
-                  </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="inputPendidikan">Pendidikan Terakhir</label>
+                  <select class="form-control" id="inputPendidikan" name="inputPendidikan">
+                    <option value="0">Pilih Pendidikan Terakhir</option>
+                    <option value="1">Tidak Tamat SD</option>
+                    <option value="2">SD/MI sederajat</option>
+                    <option value="3">SMP/MTs sederajat</option>
+                    <option value="4">SMA/MA sederajat</option>
+                    <option value="5">Diploma</option>
+                    <option value="6">S1</option>
+                    <option value="7">S2</option>
+                    <option value="8">S3</option>
+                  </select>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="inputUmur">Umur</label>
-                    <input type="number" class="form-control" id="inputUmur" name="inputUmur" placeholder="Umur (dalam tahun)">
-                  </div>
-
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="inputUmur">Umur</label>
+                  <input type="number" class="form-control" id="inputUmur" name="inputUmur" placeholder="Umur (dalam tahun)">
                 </div>
-
 
               </div>
 
 
+            </div>
 
+            <div class="pull-right">
               <button type="submit" class="btn btn-primary">TENTUKAN PAKET</button>
+            </div>
           </form>
         </div>
-        <!-- single-well end-->
-        <!-- <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="well-middle">
-            <div class="single-well">
-              <a href="#">
-                <h4 class="sec-head">project Maintenance</h4>
-              </a>
-              <p>
-                Redug Lagre dolor sit amet, consectetur adipisicing elit. Itaque quas officiis iure aspernatur sit adipisci quaerat unde at nequeRedug Lagre dolor sit amet, consectetur adipisicing elit. Itaque quas officiis iure
-              </p>
-              <ul>
-                <li>
-                  <i class="fa fa-check"></i> Interior design Package
-                </li>
-                <li>
-                  <i class="fa fa-check"></i> Building House
-                </li>
-                <li>
-                  <i class="fa fa-check"></i> Reparing of Residentail Roof
-                </li>
-                <li>
-                  <i class="fa fa-check"></i> Renovaion of Commercial Office
-                </li>
-                <li>
-                  <i class="fa fa-check"></i> Make Quality Products
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> -->
-        <!-- End col-->
+
       </div>
     </div>
   </div>
   <!-- End About area -->
+
+  <!-- Start team Area -->
+  <div id="team" class="our-team-area area-padding">
+    <!-- Start Wellcome Area -->
+    <div class="wellcome-area">
+      <form id="form_upload" method="post" action="uploadFile.php" enctype="multipart/form-data">
+        <div class="well-bg">
+          <div class="test-overly"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12  text-center">
+                <div class="wellcome-text">
+                  <div class="well-text text-center">
+                    <h2>Unggah Berkas</h2>
+                    <p>
+                      Unggah berkas berisi nilai dari variabel-variabel independen dan dapatkan rekomendasi paketnya.
+                    </p>
+                    <div class="subs-feilds">
+                      <div class="suscribe-input">
+                        <input type="file" id="file_upload" name="file_upload" style="display: none;" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                        <input type="text" class="email form-control width-80" id="filename" placeholder="Pilih File">
+                        <button type="button" id="btn_browse" class="add-btn width-20">Browse</button>
+                        <div id="msg_Submit" class="h3 text-center hidden"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a class="ready-btn" id="btn_upload">UPLOAD</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- End Wellcome Area -->
+
+  </div>
+  <!-- End Team Area -->
 
   <!-- Start Service area -->
   <div id="services" class="services-area area-padding">
@@ -366,46 +376,9 @@ if (isset($_POST["inputNama"])) {
 
 
 
-  <!-- Start team Area -->
-  <div id="team" class="our-team-area area-padding">
-    <!-- Start Wellcome Area -->
-    <div class="wellcome-area">
-      <form id="form_upload" method="post" action="uploadFile.php" enctype="multipart/form-data">
-        <div class="well-bg">
-          <div class="test-overly"></div>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12  text-center">
-                <div class="wellcome-text">
-                  <div class="well-text text-center">
-                    <h2>Unggah Berkas</h2>
-                    <p>
-                      Unggah berkas berisi nilai dari variabel-variabel independen dan dapatkan rekomendasi paketnya.
-                    </p>
-                    <div class="subs-feilds">
-                      <div class="suscribe-input">
-                        <input type="file" id="file_upload" name="file_upload" style="display: none;" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                        <input type="text" class="email form-control width-80" id="filename" placeholder="Pilih File">
-                        <button type="button" id="btn_browse" class="add-btn width-20">Browse</button>
-                        <div id="msg_Submit" class="h3 text-center hidden"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <a class="ready-btn" id="btn_upload">UPLOAD</a>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <!-- End Wellcome Area -->
-
-  </div>
-  <!-- End Team Area -->
-
   
+
+
 
   <!-- Start Footer bottom Area -->
   <footer>

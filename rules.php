@@ -100,7 +100,7 @@ if ($result = mysqli_query($link, $sql)) {
 
   <header>
     <!-- header-area start -->
-    <div id="sticker" class="header-area stick">
+    <div id="sticker" class="header-area stick" style="background: rgba(0, 0, 0, 1);">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-sm-12">
@@ -134,7 +134,7 @@ if ($result = mysqli_query($link, $sql)) {
                   <li class="active">
                     <a class="page-scroll" href="rules.php">Rules</a>
                   </li>
-                  
+
                 </ul>
               </div>
               <!-- navbar-collapse -->
@@ -153,38 +153,50 @@ if ($result = mysqli_query($link, $sql)) {
 
   <!-- Start About area -->
   <div id="about" class="about-area area-padding">
-    <div class="container">
-      <div class="row">
-        <br />
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="section-headline text-center">
-            <h2>Manajemen Rules</h2>
+    <form method="post" action="saveRules.php" enctype="multipart/form-data">
+      <div class="container">
+        <div class="row">
+          <br />
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center">
+              <h2>Manajemen Rules</h2>
+            </div>
           </div>
         </div>
-      </div>
 
-      <?php
-      foreach ($data_rules as $data) {
-        $temp_rule = explode(";", $data[1]);
-        echo '<div class="bs-callout bs-callout-info" data-kategori="'.$data[2].'">';
-        echo '<p> <strong> JIKA </strong> ';
-        for ($i = 0; $i < count($data_variabel_independen); $i++) {
-          echo ' <span class="label label-primary">' . $data_variabel_independen[$i][1] . '</span> ';
-          echo ' <span class="label label-info">' . ($data_kategori_independen[$i][$temp_rule[$i] - 1][2]) . '</span> ';
-          if ($i != count($data_variabel_independen) - 1) {
-            echo ' <strong> , </strong> ';
+        <div class="pull-right">
+          <button class="btn btn-primary" type="button">GENERATE RULES</button>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <?php
+        foreach ($data_rules as $data) {
+          $temp_rule = explode(";", $data[1]);
+          echo '<div class="bs-callout bs-callout-info" data-kategori="' . $data[2] . '">';
+          echo '<input type="hidden" class="id_rules" name="id_rules[]" value="' . $data[0] . '"></input>';
+          echo '<p> <strong> JIKA </strong> ';
+          for ($i = 0; $i < count($data_variabel_independen); $i++) {
+            echo ' <span class="label label-primary">' . $data_variabel_independen[$i][1] . '</span> ';
+            echo ' <span class="label label-info">' . ($data_kategori_independen[$i][$temp_rule[$i] - 1][2]) . '</span> ';
+            if ($i != count($data_variabel_independen) - 1) {
+              echo ' <strong> , </strong> ';
+            }
           }
-        }
-        echo ' <strong> MAKA </strong> ';
-        echo ' <span class="label label-success">' . $data_variabel_dependen[0][1] . '</span> ';
-        echo ' <a><span class="label label-info result">' . $data_kategori_dependen[0][$data[2] - 1][2] . '</span></a> ';
-        echo '</p></div>';
-      } ?>
-    </div>
+          echo ' <strong> MAKA </strong> ';
+          echo ' <span class="label label-success">' . $data_variabel_dependen[0][1] . '</span> ';
+          echo ' <a><input type="hidden" class="value_rule" name="value_rule[]" value="' . $data[2] . '"></input><span class="label label-info result">' . $data_kategori_dependen[0][$data[2] - 1][2] . '</span></a> ';
+          echo '</p></div>';
+        } ?>
+        <div class="pull-right">
+          <button class="btn btn-primary" type="submit">SIMPAN DATA RULES</button>
+        </div>
+      </div>
+    </form>
   </div>
   <!-- End About area -->
 
-  
+
 
   <!-- Start Footer bottom Area -->
   <footer>
@@ -312,15 +324,16 @@ if ($result = mysqli_query($link, $sql)) {
     $('.result').on('click', function() {
       var kategori_now = $(this).closest('.bs-callout').attr('data-kategori');
       console.log($(this).closest('.bs-callout').attr('data-kategori'));
-      if(parseInt(kategori_now) == obj_kategori[0].length){
+      if (parseInt(kategori_now) == obj_kategori[0].length) {
         $(this).html(obj_kategori[0][0][2]);
         $(this).closest('.bs-callout').attr('data-kategori', '1');
+        $(this).prev('.value_rule').val(1);
       } else {
         $(this).html(obj_kategori[0][kategori_now][2]);
-        $(this).closest('.bs-callout').attr('data-kategori', String(parseInt(kategori_now)+1));
+        $(this).closest('.bs-callout').attr('data-kategori', String(parseInt(kategori_now) + 1));
+        $(this).prev('.value_rule').val(parseInt(kategori_now) + 1);
       }
     });
-
   </script>
 
 

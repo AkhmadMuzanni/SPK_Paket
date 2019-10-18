@@ -11,9 +11,9 @@ $data_kategori = array();
 if ($result = mysqli_query($link, $sql)) {
   while ($row = mysqli_fetch_row($result)) {
     array_push($data_variabel, array($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]));
-    $sqlKategori = "SELECT * FROM categories WHERE idVariabel = ".$row[0];
+    $sqlKategori = "SELECT * FROM categories WHERE idVariabel = " . $row[0];
     $temp_kategori = array();
-    
+
     if ($resultKategori = mysqli_query($link, $sqlKategori)) {
       while ($rowKategori = mysqli_fetch_row($resultKategori)) {
         array_push($temp_kategori, array($rowKategori[0], $rowKategori[1], $rowKategori[2], $rowKategori[3], $rowKategori[4], $rowKategori[5], $rowKategori[6]));
@@ -21,7 +21,6 @@ if ($result = mysqli_query($link, $sql)) {
     }
 
     array_push($data_kategori, $temp_kategori);
-
   }
 }
 
@@ -84,7 +83,7 @@ if ($result = mysqli_query($link, $sql)) {
 
   <header>
     <!-- header-area start -->
-    <div id="sticker" class="header-area stick">
+    <div id="sticker" class="header-area stick" style="background: rgba(0, 0, 0, 1);">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-sm-12">
@@ -118,7 +117,7 @@ if ($result = mysqli_query($link, $sql)) {
                   <li>
                     <a class="page-scroll" href="rules.php">Rules</a>
                   </li>
-                  
+
                 </ul>
               </div>
               <!-- navbar-collapse -->
@@ -137,78 +136,89 @@ if ($result = mysqli_query($link, $sql)) {
 
   <!-- Start About area -->
   <div id="about" class="about-area area-padding">
-    <div class="container">
-      <div class="row">
-        <br />
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="section-headline text-center">
-            <h2>Manajemen Variabel</h2>
+    <form method="post" action="saveVariabel.php" enctype="multipart/form-data">
+      <div class="container">
+        <div class="row">
+          <br />
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center">
+              <h2>Manajemen Variabel</h2>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div id="table" class="table-editable">
+        <div id="table" class="table-editable">
 
-        <table class="table" style="width:100%">
-          <thead class="thead-dark">
-            <tr>
-              <th>Nama Variabel</th>
-              <th>Batas Bawah</th>
-              <th>Batas Atas</th>
-              <th>Jenis</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            foreach ($data_variabel as $data) {
-              echo '<tr>';
-              echo '<td contenteditable="true">' . $data[1] . '</td>';
-              echo '<td contenteditable="true">' . $data[3] . '</td>';
-              echo '<td contenteditable="true">' . $data[2] . '</td>';
-              if ($data[4] == 0) {
-                echo '<td><span class="label label-primary">Variabel Independen</span></td>';
-              } else {
-                echo '<td><span class="label label-success">Variabel Dependen</span></td>';
+          <table class="table" style="width:100%">
+            <thead class="thead-dark">
+              <tr>
+                <th>Nama Variabel</th>
+                <th>Batas Bawah</th>
+                <th>Batas Atas</th>
+                <th>Jenis</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              foreach ($data_variabel as $data) {
+                echo '<tr>';
+                echo '<input type="hidden" name="id_variabel[]" value="' . $data[0] . '"></input>';
+                echo '<input type="hidden" name="nama_variabel[]" value="' . $data[1] . '"></input><td class="editCell" contenteditable="true">' . $data[1] . '</td>';
+                echo '<input type="hidden" name="batas_bawah_variabel[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
+                echo '<input type="hidden" name="batas_atas_variabel[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
+                if ($data[4] == 0) {
+                  echo '<input type="hidden" name="jenis_variabel[]" value="' . $data[4] . '"></input><td class="editCell"><span class="label label-primary">Variabel Independen</span></td>';
+                } else {
+                  echo '<input type="hidden" name="jenis_variabel[]" value="' . $data[4] . '"></input><td class="editCell"><span class="label label-success">Variabel Dependen</span></td>';
+                }
+                echo '<td><button class="btn btn-danger" type="button">Hapus</button></td>';
+                echo '</tr>';
               }
-              echo '<td><button class="btn btn-danger" type="button">Hapus</button></td>';
-              echo '</tr>';
-            }
-            ?>
-          </tbody>
-        </table>
+              ?>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pull-right">
+          <button class="btn btn-info" type="button">TAMBAH VARIABEL</button>
+          <button class="btn btn-primary" type="submit">SIMPAN DATA VARIABEL</button>
+        </div>
+
+
       </div>
-
-
-
-
-    </div>
+    </form>
   </div>
   <!-- End About area -->
 
   <!-- Start Service area -->
   <div id="services" class="services-area area-padding">
-    <div class="container">
-      <div class="row">
-        <br />
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="section-headline text-center">
-            <h2>Manajemen Kelas</h2>
+    <form method="post" action="saveKategori.php" enctype="multipart/form-data">
+      <div class="container">
+        <div class="row">
+          <br />
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center">
+              <h2>Manajemen Kategori</h2>
+            </div>
           </div>
         </div>
-      </div>
 
-      <?php
-      for($i = 0; $i < count($data_variabel) ;$i++){
-        if($data_variabel[$i][4] == 0){
-          echo '<div class="panel panel-primary">';
+        <div class="pull-right" style="margin-bottom:10px;">
+          <button class="btn btn-primary" type="submit">GENERATE ULANG KATEGORI</button>
+        </div>
 
-        } else {
-          echo '<div class="panel panel-success">';
+        <div class="clearfix"></div>
 
-        }
-        ?>
-        
+        <?php
+        for ($i = 0; $i < count($data_variabel); $i++) {
+          if ($data_variabel[$i][4] == 0) {
+            echo '<input type="hidden" name="id_variabel[]" value="' . $data_variabel[$i][0] . '"><div class="panel panel-primary">';
+          } else {
+            echo '<input type="hidden" name="id_variabel[]" value="' . $data_variabel[$i][0] . '"><div class="panel panel-success">';
+          }
+          ?>
+
           <div class="panel-heading"><?php echo $data_variabel[$i][1] ?></div>
           <div class="panel-body">
             <div id="table" class="table-editable">
@@ -227,10 +237,11 @@ if ($result = mysqli_query($link, $sql)) {
                   <?php
                     foreach ($data_kategori[$i] as $data) {
                       echo '<tr>';
-                      echo '<td contenteditable="true">' . $data[2] . '</td>';
-                      echo '<td contenteditable="true">' . $data[3] . '</td>';
-                      echo '<td contenteditable="true">' . $data[4] . '</td>';
-                      echo '<td contenteditable="true">' . $data[5] . '</td>';
+                      echo '<input type="hidden" name="id_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[0] . '"></input>';
+                      echo '<input type="hidden" name="nama_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
+                      echo '<input type="hidden" name="batas_bawah_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
+                      echo '<input type="hidden" name="batas_tengah_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[4] . '"></input><td class="editCell" contenteditable="true">' . $data[4] . '</td>';
+                      echo '<input type="hidden" name="batas_atas_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[5] . '"></input><td class="editCell" contenteditable="true">' . $data[5] . '</td>';
                       echo '<td><button class="btn btn-danger" type="button">Hapus</button></td>';
                       echo '</tr>';
                     }
@@ -238,19 +249,23 @@ if ($result = mysqli_query($link, $sql)) {
                 </tbody>
               </table>
             </div>
+
+            <div class="pull-right" style="margin-bottom:10px;">
+              <button class="btn btn-info" type="button">TAMBAH KATEGORI</button>
+            </div>
+
+            <br />
           </div>
-        </div>
-      <?php
-      }
-      ?>
-
-
-
-
-
-
-
+      </div>
+    <?php
+    }
+    ?>
+    <div class="pull-right" style="margin-bottom:10px;">
+      <button class="btn btn-primary" type="submit">SIMPAN DATA KATEGORI</button>
     </div>
+
+  </div>
+  </form>
   </div>
   <!-- End Service area -->
 
@@ -366,6 +381,11 @@ if ($result = mysqli_query($link, $sql)) {
 
   <script src="js/main.js"></script>
   <script src="js/editable_table.js"></script>
+  <script type="text/javascript">
+    $('.editCell').on('DOMSubtreeModified', function() {
+      $(this).prev('input').val($(this).text());
+    });
+  </script>
   <?php unset($_POST); ?>
 </body>
 
