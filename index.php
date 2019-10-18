@@ -279,6 +279,8 @@ if (isset($_POST["inputNama"])) {
                     <p>
                       Unggah berkas berisi nilai dari variabel-variabel independen dan dapatkan rekomendasi paketnya.
                     </p>
+                    <a href="template.xlsx"><button class="btn btn-primary" type="button"><span class="fa fa-download"></span> Download Template</button></a>
+                    <div class=clearfix></div>
                     <div class="subs-feilds">
                       <div class="suscribe-input">
                         <input type="file" id="file_upload" name="file_upload" style="display: none;" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
