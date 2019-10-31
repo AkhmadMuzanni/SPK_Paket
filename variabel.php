@@ -36,7 +36,7 @@ if ($result = mysqli_query($link, $sql)) {
 
 <head>
   <meta charset="utf-8">
-  <title>SPK Paket</title>
+  <title>APPARENT</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -100,7 +100,7 @@ if ($result = mysqli_query($link, $sql)) {
                 </button>
                 <!-- Brand -->
                 <a class="navbar-brand page-scroll sticky-logo" href="index.php">
-                  <h1>SPK Paket</h1>
+                  <h1>APPARENT</h1>
                   <!-- Uncomment below if you prefer to use an image logo -->
                   <!-- <img src="img/logo.png" alt="" title=""> -->
                 </a>

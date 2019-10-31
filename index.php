@@ -49,7 +49,7 @@ if (isset($_POST["inputNama"])) {
 
 <head>
   <meta charset="utf-8">
-  <title>SPK Paket</title>
+  <title>APPARENT</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -112,7 +112,7 @@ if (isset($_POST["inputNama"])) {
                 </button>
                 <!-- Brand -->
                 <a class="navbar-brand page-scroll sticky-logo" href="index.html">
-                  <h1>SPK Paket</h1>
+                  <h1>APPARENT</h1>
                   <!-- Uncomment below if you prefer to use an image logo -->
                   <!-- <img src="img/logo.png" alt="" title=""> -->
                 </a>
@@ -164,11 +164,11 @@ if (isset($_POST["inputNama"])) {
               <div class="slider-content">
                 <!-- layer 1 -->
                 <div class="layer-1-1 hidden-xs wow slideInDown" data-wow-duration="2s" data-wow-delay=".2s">
-                  <h2 class="title1">SPK REHAB NAPITER</h2>
+                  <h2 class="title1">APPARENT</h2>
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">Sistem Pendukung Keputusan Paket Rehabilitasi Napi Terorisme</h1>
+                  <h1 class="title2">Aplikasi Penentu Paket Rehabilitasi <br/> Napi Terorisme</h1>
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
