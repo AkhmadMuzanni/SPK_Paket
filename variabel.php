@@ -3,7 +3,7 @@ session_start();
 
 require_once('db.php');
 
-$sql = "SELECT * FROM variables";
+$sql = "SELECT * FROM variables where deleted = 0";
 
 $data_variabel = array();
 $data_kategori = array();
@@ -11,7 +11,7 @@ $data_kategori = array();
 if ($result = mysqli_query($link, $sql)) {
   while ($row = mysqli_fetch_row($result)) {
     array_push($data_variabel, array($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]));
-    $sqlKategori = "SELECT * FROM categories WHERE idVariabel = " . $row[0];
+    $sqlKategori = "SELECT * FROM categories WHERE idVariabel = " . $row[0] . " and deleted = 0";
     $temp_kategori = array();
 
     if ($resultKategori = mysqli_query($link, $sqlKategori)) {
@@ -162,18 +162,28 @@ if ($result = mysqli_query($link, $sql)) {
             <tbody>
               <?php
               foreach ($data_variabel as $data) {
-                echo '<tr>';
-                echo '<input type="hidden" name="id_variabel[]" value="' . $data[0] . '"></input>';
-                echo '<input type="hidden" name="nama_variabel[]" value="' . $data[1] . '"></input><td class="editCell" contenteditable="true">' . $data[1] . '</td>';
-                echo '<input type="hidden" name="batas_bawah_variabel[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
-                echo '<input type="hidden" name="batas_atas_variabel[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
                 if ($data[4] == 0) {
+                  echo '<tr>';
+                  echo '<input type="hidden" name="id_variabel[]" value="' . $data[0] . '"></input>';
+                  echo '<input type="hidden" name="nama_variabel[]" value="' . $data[1] . '"></input><td class="editCell" contenteditable="true">' . $data[1] . '</td>';
+                  echo '<input type="hidden" name="batas_bawah_variabel[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
+                  echo '<input type="hidden" name="batas_atas_variabel[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
                   echo '<input type="hidden" name="jenis_variabel[]" value="' . $data[4] . '"></input><td class="editCell"><span class="label label-primary">Variabel Independen</span></td>';
-                } else {
-                  echo '<input type="hidden" name="jenis_variabel[]" value="' . $data[4] . '"></input><td class="editCell"><span class="label label-success">Variabel Dependen</span></td>';
+                  echo '<td><button class="btn btn-danger btn_hapus" type="button">Hapus</button></td>';
+                  echo '</tr>';
                 }
-                echo '<td><button class="btn btn-danger" type="button">Hapus</button></td>';
-                echo '</tr>';
+              }
+              foreach ($data_variabel as $data) {
+                if ($data[4] == 1) {
+                  echo '<tr>';
+                  echo '<input type="hidden" name="id_variabel[]" value="' . $data[0] . '"></input>';
+                  echo '<input type="hidden" name="nama_variabel[]" value="' . $data[1] . '"></input><td class="editCell" contenteditable="true">' . $data[1] . '</td>';
+                  echo '<input type="hidden" name="batas_bawah_variabel[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
+                  echo '<input type="hidden" name="batas_atas_variabel[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
+                  echo '<input type="hidden" name="jenis_variabel[]" value="' . $data[4] . '"></input><td class="editCell"><span class="label label-success">Variabel Dependen</span></td>';
+                  echo '<td></td>';
+                  echo '</tr>';
+                }
               }
               ?>
             </tbody>
@@ -181,7 +191,7 @@ if ($result = mysqli_query($link, $sql)) {
         </div>
 
         <div class="pull-right">
-          <button class="btn btn-info" type="button">TAMBAH VARIABEL</button>
+          <button class="btn btn-info" type="button" data-toggle="modal" data-target="#modalVariabel">TAMBAH VARIABEL</button>
           <button class="btn btn-primary" type="submit">SIMPAN DATA VARIABEL</button>
         </div>
 
@@ -213,180 +223,240 @@ if ($result = mysqli_query($link, $sql)) {
         <?php
         for ($i = 0; $i < count($data_variabel); $i++) {
           if ($data_variabel[$i][4] == 0) {
-            echo '<input type="hidden" name="id_variabel[]" value="' . $data_variabel[$i][0] . '"><div class="panel panel-primary">';
-          } else {
-            echo '<input type="hidden" name="id_variabel[]" value="' . $data_variabel[$i][0] . '"><div class="panel panel-success">';
-          }
-          ?>
+            echo '<input type="hidden" class="id_variabel" name="id_variabel[]" value="' . $data_variabel[$i][0] . '"><div class="panel panel-primary">';
+            ?>
 
-          <div class="panel-heading"><?php echo $data_variabel[$i][1] ?></div>
-          <div class="panel-body">
-            <div id="table" class="table-editable">
+            <div class="panel-heading"><?php echo $data_variabel[$i][1] ?></div>
+            <div class="panel-body">
+              <div id="table" class="table-editable">
 
-              <table class="table" style="width:100%">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Nama Kategori</th>
-                    <th>Batas Bawah</th>
-                    <th>Batas Tengah</th>
-                    <th>Batas Atas</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                    foreach ($data_kategori[$i] as $data) {
-                      echo '<tr>';
-                      echo '<input type="hidden" name="id_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[0] . '"></input>';
-                      echo '<input type="hidden" name="nama_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
-                      echo '<input type="hidden" name="batas_bawah_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
-                      echo '<input type="hidden" name="batas_tengah_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[4] . '"></input><td class="editCell" contenteditable="true">' . $data[4] . '</td>';
-                      echo '<input type="hidden" name="batas_atas_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[5] . '"></input><td class="editCell" contenteditable="true">' . $data[5] . '</td>';
-                      echo '<td><button class="btn btn-danger" type="button">Hapus</button></td>';
-                      echo '</tr>';
-                    }
-                    ?>
-                </tbody>
-              </table>
+                <table class="table" style="width:100%">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>Nama Kategori</th>
+                      <th>Batas Bawah</th>
+                      <th>Batas Tengah</th>
+                      <th>Batas Atas</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                        foreach ($data_kategori[$i] as $data) {
+                          echo '<tr>';
+                          echo '<input type="hidden" name="id_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[0] . '"></input>';
+                          echo '<input type="hidden" name="nama_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
+                          echo '<input type="hidden" name="batas_bawah_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
+                          echo '<input type="hidden" name="batas_tengah_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[4] . '"></input><td class="editCell" contenteditable="true">' . $data[4] . '</td>';
+                          echo '<input type="hidden" name="batas_atas_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[5] . '"></input><td class="editCell" contenteditable="true">' . $data[5] . '</td>';
+                          echo '<td><button class="btn btn-danger btn_hapus" type="button">Hapus</button></td>';
+                          echo '</tr>';
+                        }
+                        ?>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="pull-right" style="margin-bottom:10px;">
+                <button class="btn btn-info btn_tambah_kategori" type="button" data-toggle="modal" data-target="#modalKategori">TAMBAH KATEGORI</button>
+              </div>
+
+              <br />
             </div>
-
-            <div class="pull-right" style="margin-bottom:10px;">
-              <button class="btn btn-info" type="button">TAMBAH KATEGORI</button>
-            </div>
-
-            <br />
-          </div>
       </div>
-    <?php
+  <?php
     }
-    ?>
-    <div class="pull-right" style="margin-bottom:10px;">
-      <button class="btn btn-primary" type="submit">SIMPAN DATA KATEGORI</button>
+  }
+  ?>
+  <?php
+  for ($i = 0; $i < count($data_variabel); $i++) {
+    if ($data_variabel[$i][4] == 1) {
+      echo '<input type="hidden" class="id_variabel" name="id_variabel[]" value="' . $data_variabel[$i][0] . '"><div class="panel panel-success">';
+
+      ?>
+
+      <div class="panel-heading"><?php echo $data_variabel[$i][1] ?></div>
+      <div class="panel-body">
+        <div id="table" class="table-editable">
+
+          <table class="table" style="width:100%">
+            <thead class="thead-dark">
+              <tr>
+                <th>Nama Kategori</th>
+                <th>Batas Bawah</th>
+                <th>Batas Tengah</th>
+                <th>Batas Atas</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+                  foreach ($data_kategori[$i] as $data) {
+                    echo '<tr>';
+                    echo '<input type="hidden" name="id_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[0] . '"></input>';
+                    echo '<input type="hidden" name="nama_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
+                    echo '<input type="hidden" name="batas_bawah_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
+                    echo '<input type="hidden" name="batas_tengah_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[4] . '"></input><td class="editCell" contenteditable="true">' . $data[4] . '</td>';
+                    echo '<input type="hidden" name="batas_atas_kategori_' . $data_variabel[$i][0] . '[]" value="' . $data[5] . '"></input><td class="editCell" contenteditable="true">' . $data[5] . '</td>';
+                    echo '<td><button class="btn btn-danger btn_hapus" type="button">Hapus</button></td>';
+                    echo '</tr>';
+                  }
+                  ?>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pull-right" style="margin-bottom:10px;">
+          <button class="btn btn-info btn_tambah_kategori" type="button" data-toggle="modal" data-target="#modalKategori">TAMBAH KATEGORI</button>
+        </div>
+
+        <br />
+      </div>
+  </div>
+<?php
+  }
+}
+?>
+<div class="pull-right" style="margin-bottom:10px;">
+  <button class="btn btn-primary" type="submit">SIMPAN DATA KATEGORI</button>
+</div>
+
+</div>
+</form>
+</div>
+<!-- End Service area -->
+
+<div id="modalVariabel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambah Variabel</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" action="insertVariabel.php" id="formVariabel" method="post">
+          <div class="form-group">
+            <label class="control-label col-sm-5" for="namaVariabel">Nama Variabel:</label>
+            <div class="col-sm-7">
+              <input type="email" class="form-control" name="namaVariabel" id="namaVariabel" placeholder="Nama Variabel">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-5" for="batasBawah">Batas Bawah</label>
+            <div class="col-sm-7">
+              <input type="number" class="form-control" name="batasBawah" id="batasBawah" placeholder="Batas Bawah">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-5" for="batasAtas">Batas Atas</label>
+            <div class="col-sm-7">
+              <input type="number" class="form-control" name="batasAtas" id="batasAtas" placeholder="Batas Atas">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btn_insert_variabel">Simpan</button>
+      </div>
     </div>
 
   </div>
-  </form>
+</div>
+
+<div id="modalKategori" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambah Kategori</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" action="insertKategori.php" method="post" id="formKategori">
+        <input type="hidden" class="form-control" name="idVariabel" id="idVariabel">
+          <div class="form-group">
+            <label class="control-label col-sm-5" for="namaKategori">Nama Kategori:</label>
+            <div class="col-sm-7">
+              <input type="email" class="form-control" name="namaKategori" id="namaKategori" placeholder="Nama Kategori">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-5" for="batasBawah">Batas Bawah</label>
+            <div class="col-sm-7">
+              <input type="number" class="form-control" name="batasBawah" id="batasBawah" placeholder="Batas Bawah">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-5" for="batasTengah">Batas Tengah</label>
+            <div class="col-sm-7">
+              <input type="number" class="form-control" name="batasTengah" id="batasTengah" placeholder="Batas Tengah">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-5" for="batasAtas">Batas Atas</label>
+            <div class="col-sm-7">
+              <input type="number" class="form-control" name="batasAtas" id="batasAtas" placeholder="Batas Atas">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btn_insert_kategori">Simpan</button>
+      </div>
+    </div>
+
   </div>
-  <!-- End Service area -->
+</div>
 
-  <!-- Start Footer bottom Area -->
-  <footer>
-    <div class="footer-area">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="footer-content">
-              <div class="footer-head">
-                <div class="footer-logo">
-                  <h2>SPK_Paket</h2>
-                </div>
+<?php include 'footer.php'; ?>
 
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
-                <div class="footer-icons">
-                  <ul>
-                    <li>
-                      <a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-google"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-pinterest"></i></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end single footer -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="footer-content">
-              <div class="footer-head">
-                <h4>information</h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-                </p>
-                <div class="footer-contacts">
-                  <p><span>Tel:</span> +123 456 789</p>
-                  <p><span>Email:</span> contact@example.com</p>
-                  <p><span>Working Hours:</span> 9am-5pm</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end single footer -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="footer-content">
-              <div class="footer-head">
-                <h4>Instagram</h4>
-                <div class="flicker-img">
-                  <a href="#"><img src="img/portfolio/1.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/2.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/3.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/4.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/5.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/6.jpg" alt=""></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-area-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="copyright text-center">
-              <p>
-                &copy; Copyright <strong>SPK_Paket</strong>. All Rights Reserved
-              </p>
-            </div>
-            <div class="credits">
-              <!--
-                All the links in the footer should remain intact.
-                You can delete the links only if you purchased the pro version.
-                Licensing information: https://bootstrapmade.com/license/
-                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
-              -->
-              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-              , Created by <a href="https://bootstrapmade.com/">BEVY Digital Dev.</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+<!-- JavaScript Libraries -->
+<script src="lib/jquery/jquery.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/venobox/venobox.min.js"></script>
+<script src="lib/knob/jquery.knob.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/parallax/parallax.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/nivo-slider/js/jquery.nivo.slider.js" type="text/javascript"></script>
+<script src="lib/appear/jquery.appear.js"></script>
+<script src="lib/isotope/isotope.pkgd.min.js"></script>
 
-  <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/venobox/venobox.min.js"></script>
-  <script src="lib/knob/jquery.knob.js"></script>
-  <script src="lib/wow/wow.min.js"></script>
-  <script src="lib/parallax/parallax.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/nivo-slider/js/jquery.nivo.slider.js" type="text/javascript"></script>
-  <script src="lib/appear/jquery.appear.js"></script>
-  <script src="lib/isotope/isotope.pkgd.min.js"></script>
+<!-- Contact Form JavaScript File -->
+<script src="contactform/contactform.js"></script>
 
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+<script src="js/main.js"></script>
+<script src="js/editable_table.js"></script>
+<script type="text/javascript">
+  $('.editCell').on('DOMSubtreeModified', function() {
+    $(this).prev('input').val($(this).text());
+  });
 
-  <script src="js/main.js"></script>
-  <script src="js/editable_table.js"></script>
-  <script type="text/javascript">
-    $('.editCell').on('DOMSubtreeModified', function() {
-      $(this).prev('input').val($(this).text());
-    });
-  </script>
-  <?php unset($_POST); ?>
+  $("#btn_insert_variabel").click(function() {
+    $("#formVariabel").submit();
+  });
+
+  $("#btn_insert_kategori").click(function() {
+    $("#formKategori").submit();
+  });
+
+  $(".btn_tambah_kategori").click(function() {
+    console.log('ksasa');
+    console.log($(this).closest('.panel').prev('.id_variabel').val());
+    $('#idVariabel').val($(this).closest('.panel').prev('.id_variabel').val());
+  });
+
+  $(".btn_hapus").click(function() {
+    $(this).closest('tr').remove();
+  });
+</script>
+<?php unset($_POST); ?>
 </body>
 
 </html>

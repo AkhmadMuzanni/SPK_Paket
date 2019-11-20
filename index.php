@@ -130,6 +130,9 @@ if (isset($_POST["inputNama"])) {
                     <a class="page-scroll" href="#services">Hasil</a>
                   </li>
                   <li>
+                    <a class="page-scroll" href="#paket">Paket</a>
+                  </li>
+                  <li>
                     <a class="page-scroll" href="variabel.php">Variabel</a>
                   </li>
                   <li>
@@ -152,8 +155,6 @@ if (isset($_POST["inputNama"])) {
     <div class="bend niceties preview-2">
       <div id="ensign-nivoslider" class="slides">
         <img src="img/slider/counter2.jpg" alt="" title="#slider-direction-1" />
-        <img src="img/slider/slider2.jpg" alt="" title="#slider-direction-2" />
-        <img src="img/slider/slider3.jpg" alt="" title="#slider-direction-3" />
       </div>
 
       <!-- direction 1 -->
@@ -168,7 +169,7 @@ if (isset($_POST["inputNama"])) {
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">Aplikasi Penentu Paket Rehabilitasi <br/> Napi Terorisme</h1>
+                  <h1 class="title2">Aplikasi Penentu Paket Rehabilitasi <br /> Napi Terorisme</h1>
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
@@ -340,19 +341,19 @@ if (isset($_POST["inputNama"])) {
                                                                                                                   if (isset($_POST["inputPendidikan"])) {
                                                                                                                     if ($_POST["inputPendidikan"] == "1") {
                                                                                                                       echo "\"Belum Tamat SD\"";
-                                                                                                                    } else if ($_POST["inputPendidikan"] == "1") {
-                                                                                                                      echo "\"SD/MI sederajat\"";
                                                                                                                     } else if ($_POST["inputPendidikan"] == "2") {
-                                                                                                                      echo "\"SMP/Mts sederajat\"";
+                                                                                                                      echo "\"SD/MI sederajat\"";
                                                                                                                     } else if ($_POST["inputPendidikan"] == "3") {
-                                                                                                                      echo "\"SMA/MA sederajat\"";
+                                                                                                                      echo "\"SMP/Mts sederajat\"";
                                                                                                                     } else if ($_POST["inputPendidikan"] == "4") {
-                                                                                                                      echo "\"Diploma\"";
+                                                                                                                      echo "\"SMA/MA sederajat\"";
                                                                                                                     } else if ($_POST["inputPendidikan"] == "5") {
-                                                                                                                      echo "\"S1\"";
+                                                                                                                      echo "\"Diploma\"";
                                                                                                                     } else if ($_POST["inputPendidikan"] == "6") {
-                                                                                                                      echo "\"S2\"";
+                                                                                                                      echo "\"S1\"";
                                                                                                                     } else if ($_POST["inputPendidikan"] == "7") {
+                                                                                                                      echo "\"S2\"";
+                                                                                                                    } else if ($_POST["inputPendidikan"] == "8") {
                                                                                                                       echo "\"S3\"";
                                                                                                                     } else {
                                                                                                                       echo "\"-\"";
@@ -376,103 +377,76 @@ if (isset($_POST["inputNama"])) {
   </div>
   <!-- End Service area -->
 
-
-
-  
-
-
-
-  <!-- Start Footer bottom Area -->
-  <footer>
-    <div class="footer-area">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="footer-content">
-              <div class="footer-head">
-                <div class="footer-logo">
-                  <h2>SPK_Paket</h2>
-                </div>
-
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
-                <div class="footer-icons">
-                  <ul>
-                    <li>
-                      <a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-google"></i></a>
-                    </li>
-                    <li>
-                      <a href="#"><i class="fa fa-pinterest"></i></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+  <!-- Start paket area -->
+  <div id="paket" class="services-area area-padding">
+    <div class="container">
+      <div class="section-headline services-head text-center">
+        <h2>Informasi Paket</h2>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-3">
+          <div class="thumbnail">
+            <div class="text-center" style="margin-top: 20px;">
+              <span class="glyphicon glyphicon-th-large paket_icon" aria-hidden="true"></span>
             </div>
-          </div>
-          <!-- end single footer -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="footer-content">
-              <div class="footer-head">
-                <h4>information</h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-                </p>
-                <div class="footer-contacts">
-                  <p><span>Tel:</span> +123 456 789</p>
-                  <p><span>Email:</span> contact@example.com</p>
-                  <p><span>Working Hours:</span> 9am-5pm</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end single footer -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="footer-content">
-              <div class="footer-head">
-                <h4>Instagram</h4>
-                <div class="flicker-img">
-                  <a href="#"><img src="img/portfolio/1.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/2.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/3.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/4.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/5.jpg" alt=""></a>
-                  <a href="#"><img src="img/portfolio/6.jpg" alt=""></a>
-                </div>
-              </div>
+            <div class="caption">
+              <h3 class="text-center">Paket 1</h3>
+              <br>
+              <p class="text-justify">Paket ini ditujukan untuk narapidana terorisme dengan tingkat ancaman rendah</p>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="footer-area-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="copyright text-center">
-              <p>
-                &copy; Copyright <strong>SPK_Paket</strong>. All Rights Reserved
-              </p>
+        <div class="col-md-3">
+          <div class="thumbnail">
+            <div class="text-center" style="margin-top: 20px;">
+              <span class="glyphicon glyphicon-th-large paket_icon" aria-hidden="true"></span>
             </div>
-            <div class="credits">
-              <!--
-                All the links in the footer should remain intact.
-                You can delete the links only if you purchased the pro version.
-                Licensing information: https://bootstrapmade.com/license/
-                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
-              -->
-              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-              , Created by <a href="https://bootstrapmade.com/">BEVY Digital Dev.</a>
+            <div class="caption">
+              <h3 class="text-center">Paket 2</h3>
+              <br>
+              <p class="text-justify">Paket ini ditujukan untuk narapidana terorisme dengan tingkat ancaman rendah</p>
             </div>
           </div>
         </div>
-      </div>
+        <div class="col-md-3">
+          <div class="thumbnail">
+            <div class="text-center" style="margin-top: 20px;">
+              <span class="glyphicon glyphicon-th-large paket_icon" aria-hidden="true"></span>
+            </div>
+            <div class="caption">
+              <h3 class="text-center">Paket 3</h3>
+              <br>
+              <p class="text-justify">Paket ini ditujukan untuk narapidana terorisme dengan tingkat ancaman rendah</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="thumbnail">
+            <div class="text-center" style="margin-top: 20px;">
+              <span class="glyphicon glyphicon-th-large paket_icon" aria-hidden="true"></span>
+            </div>
+            <div class="caption">
+              <h3 class="text-center">Paket 4</h3>
+              <br>
+              <p class="text-justify">Paket ini ditujukan untuk narapidana terorisme dengan tingkat ancaman rendah</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+        </div>
+
     </div>
-  </footer>
+  </div>
+                                                                                                      </div>
+  <!-- End Service area -->
+
+
+
+
+
+  <?php include 'footer.php'; ?>
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
