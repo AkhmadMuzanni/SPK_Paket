@@ -309,7 +309,7 @@ if (isset($_POST["inputNama"])) {
                     <p>
                       Unggah berkas berisi nilai dari variabel-variabel independen dan dapatkan rekomendasi paketnya.
                     </p>
-                    <a href="template.xlsx"><button class="btn btn-primary" type="button"><span class="fa fa-download"></span> Download Template</button></a>
+                    <a href="templateInput.xlsx"><button class="btn btn-primary" type="button"><span class="fa fa-download"></span> Download Template</button></a>
                     <div class=clearfix></div>
                     <div class="subs-feilds">
                       <div class="suscribe-input">
@@ -428,7 +428,7 @@ if (isset($_POST["inputNama"])) {
       </div>
       <br />
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-6">
           <div class="thumbnail">
             <div class="text-center" style="margin-top: 20px;">
               <span class="glyphicon glyphicon-th-large paket_icon" aria-hidden="true"></span>
@@ -440,7 +440,7 @@ if (isset($_POST["inputNama"])) {
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <div class="thumbnail">
             <div class="text-center" style="margin-top: 20px;">
               <span class="glyphicon glyphicon-th-large paket_icon" aria-hidden="true"></span>
@@ -452,7 +452,7 @@ if (isset($_POST["inputNama"])) {
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <div class="thumbnail">
             <div class="text-center" style="margin-top: 20px;">
               <span class="glyphicon glyphicon-th-large paket_icon" aria-hidden="true"></span>
@@ -464,7 +464,7 @@ if (isset($_POST["inputNama"])) {
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <div class="thumbnail">
             <div class="text-center" style="margin-top: 20px;">
               <span class="glyphicon glyphicon-th-large paket_icon" aria-hidden="true"></span>

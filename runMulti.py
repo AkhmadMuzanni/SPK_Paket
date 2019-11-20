@@ -240,17 +240,22 @@ def run(input_file):
     valuesExcel = df.values
     
     for i in range(len(valuesExcel)):
-        valuesExcel[i][4] = main([valuesExcel[i][1], valuesExcel[i][2]-1, valuesExcel[i][3]])
+        valuesExcel[i][5] = main([valuesExcel[i][1], valuesExcel[i][2]-1, valuesExcel[i][3], valuesExcel[i][4]-1])
         #print valuesExcel[i][4]
     
     data=valuesExcel[:,1:]
     now = datetime.now()
     dt_string = now.strftime("%d%m%Y_%H%M%S")
     dfResult = pd.DataFrame(data=valuesExcel[:,1:])
-    
+    dfResult.columns = ['Vonis', 'Pendidikan', 'Umur', 'Jenis Kelamin', 'Hasil']
+    dfResult = dfResult.astype({"Hasil": int})
+    dfResult = dfResult.astype({"Hasil": str})
+    dfResult = dfResult.replace({'Hasil': {'0': 'Paket 1', '1': 'Paket 2', '2':'Paket 3', '3':'Paket 4'}})
+    #dfResult.rename({0: "adsds", 1: "bdsds", 2: "cdsd", 3: "cdsd", 4: "cdsd"}, axis='columns')
+    #print (dfResult)
     resultFilename = 'result/result_'+dt_string+'.xlsx'
     
     dfResult.to_excel(resultFilename, index=False)
     return "/"+resultFilename
 
-#run('ContohData1.xlsx')
+#run('templateInput.xlsx')
