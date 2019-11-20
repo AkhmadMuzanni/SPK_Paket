@@ -83,8 +83,9 @@ def getRules():
     return dataRules
     conn.close()
 
-def main(val1, val2, val3):
-    value_var_i = [val1, val2, val3]
+def main(value_var_i):
+#def main(val1, val2, val3):
+    #value_var_i = [val1, val2, val3]
     #value_var_i = [8, 1, 18]
     variabel, kategori = getKategori()
     rules = getRules()
@@ -209,5 +210,8 @@ def main(val1, val2, val3):
             tempMax = result_f[i]
             idxMax = i
 
-    #print("Hasil Rekomendasi = " + kategori_var_d[idxMax])
+    #print("Hasil rekomendasi = " + kategori_var_d[idxMax])
+    #print paket
     return kategori_var_d[idxMax]
+
+#print main([20,2,20,0])

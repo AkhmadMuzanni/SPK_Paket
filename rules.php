@@ -22,7 +22,7 @@ $data_kategori_dependen = array();
 
 if ($result = mysqli_query($link, $sql)) {
   while ($row = mysqli_fetch_row($result)) {
-    $sqlKategori = "SELECT * FROM categories WHERE idVariabel = " . $row[0]. " and deleted = 0";
+    $sqlKategori = "SELECT * FROM categories WHERE idVariabel = " . $row[0] . " and deleted = 0";
     $temp_kategori = array();
 
     if ($resultKategori = mysqli_query($link, $sqlKategori)) {
@@ -165,17 +165,18 @@ if ($result = mysqli_query($link, $sql)) {
         </div>
 
         <div class="pull-right">
-          <button class="btn btn-primary" type="button">GENERATE RULES</button>
+          <button class="btn btn-primary" type="button"  data-toggle="modal" data-target="#modalGenerate">GENERATE RULES</button>
         </div>
 
         <div class="clearfix"></div>
 
         <?php
+        $counter = 1;
         foreach ($data_rules as $data) {
           $temp_rule = explode(";", $data[1]);
           echo '<div class="bs-callout bs-callout-info" data-kategori="' . $data[2] . '">';
           echo '<input type="hidden" class="id_rules" name="id_rules[]" value="' . $data[0] . '"></input>';
-          echo '<p> <strong> JIKA </strong> ';
+          echo '<p> <strong>' . $counter++ . '. JIKA </strong> ';
           for ($i = 0; $i < count($data_variabel_independen); $i++) {
             echo ' <span class="label label-primary">' . $data_variabel_independen[$i][1] . '</span> ';
             echo ' <span class="label label-info">' . ($data_kategori_independen[$i][$temp_rule[$i] - 1][2]) . '</span> ';
@@ -195,6 +196,29 @@ if ($result = mysqli_query($link, $sql)) {
     </form>
   </div>
   <!-- End About area -->
+
+  <div id="modalGenerate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Generate Rule</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" action="generateRule.php" id="formRule" method="post">
+            <p>Apakah Anda Yakin Ingin Melakukan Generate Rule?</p>
+            <p>Generate Rule akan mereset seluruh rule yang telah ada dan Anda dipersilahkan melakukan penyesuaian</p>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="btn_generate">Generate</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <?php include 'footer.php'; ?>
 
@@ -241,6 +265,10 @@ if ($result = mysqli_query($link, $sql)) {
         $(this).closest('.bs-callout').attr('data-kategori', String(parseInt(kategori_now) + 1));
         $(this).prev('.value_rule').val(parseInt(kategori_now) + 1);
       }
+    });
+
+    $("#btn_generate").click(function() {
+      $("#formRule").submit();
     });
   </script>
 

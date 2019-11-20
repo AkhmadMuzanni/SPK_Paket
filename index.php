@@ -13,6 +13,7 @@ if ($result = mysqli_query($link, $sql)) {
 
 $hasil = "Belum Ditentukan";
 $pendidikan = 0;
+$jenisKelamin = 0;
 
 if (isset($_POST["inputPendidikan"])) {
   if ($_POST["inputPendidikan"] == "1") {
@@ -32,8 +33,16 @@ if (isset($_POST["inputPendidikan"])) {
   }
 }
 
+if (isset($_POST["inputJenisKelamin"])) {
+  if ($_POST["inputJenisKelamin"] == "1") {
+    $jenisKelamin = 0;
+  } else if ($_POST["inputJenisKelamin"] == "2") {
+    $jenisKelamin = 1;
+  } 
+}
+
 if (isset($_POST["inputNama"])) {
-  $str_input = "python -c \"import run; print run.main(" . $_POST["inputVonis"] . "," . $pendidikan . "," . $_POST["inputUmur"] . ")\"";
+  $str_input = "python -c \"import run; print run.main([" . $_POST["inputVonis"] . "," . $pendidikan . "," . $_POST["inputUmur"]. "," . $jenisKelamin . "])\"";
   // echo "sukses";
   // echo $str_input;
   // shell_exec("python -c \"import training_SVR; print training_SVR.main('jagung')\"";	
@@ -111,7 +120,7 @@ if (isset($_POST["inputNama"])) {
                   <span class="icon-bar"></span>
                 </button>
                 <!-- Brand -->
-                <a class="navbar-brand page-scroll sticky-logo" href="index.html">
+                <a class="navbar-brand page-scroll sticky-logo" href="index.php">
                   <h1>APPARENT</h1>
                   <!-- Uncomment below if you prefer to use an image logo -->
                   <!-- <img src="img/logo.png" alt="" title=""> -->
@@ -252,6 +261,26 @@ if (isset($_POST["inputNama"])) {
 
 
             </div>
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="inputJenisKelamin">Jenis Kelamin</label>
+                  <select class="form-control" id="inputJenisKelamin" name="inputJenisKelamin">
+                    <option value="0">Pilih Jenis Kelamin</option>
+                    <option value="1">Laki - Laki</option>
+                    <option value="2">Perempuan</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                
+
+              </div>
+
+
+            </div>
+
+            <div class="clearfix"></div>
 
             <div class="pull-right">
               <button type="submit" class="btn btn-primary">TENTUKAN PAKET</button>
@@ -366,6 +395,20 @@ if (isset($_POST["inputNama"])) {
             <input disabled type="text" class="form-control" id="outputUmur" placeholder="Umur" value="<?php if (isset($_POST["inputUmur"])) {
                                                                                                           echo $_POST["inputUmur"];
                                                                                                         } ?>">
+          </div>
+          <div class="form-group">
+            <label for="outputJenisKelamin">Jenis Kelamin</label>
+            <input disabled type="text" class="form-control" id="outputJenisKelamin" placeholder="Jenis Kelamin" value=<?php
+                                                                                                                  if (isset($_POST["inputJenisKelamin"])) {
+                                                                                                                    if ($_POST["inputJenisKelamin"] == "1") {
+                                                                                                                      echo "\"Laki-Laki\"";
+                                                                                                                    } else if ($_POST["inputJenisKelamin"] == "2") {
+                                                                                                                      echo "\"Perempuan\"";
+                                                                                                                    } else {
+                                                                                                                      echo "\"-\"";
+                                                                                                                    }
+                                                                                                                  }
+                                                                                                                  ?>>
           </div>
           <div class="form-group">
             <label for="outputPaket">Rekomendasi Paket</label>
