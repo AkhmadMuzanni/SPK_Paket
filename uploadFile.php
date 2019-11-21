@@ -13,7 +13,7 @@ move_uploaded_file(
   $namaFileBaru
 );
 
-$str_input = "python -c \"import runMulti; print runMulti.run('" . $namaFileBaru . "')\"";
+$str_input = "python -c \"import runMulti; print runMulti.run('" . $namaFileBaru . "')\" 2>&1";
 // echo $str_input;
 $file = shell_exec($str_input);
 
@@ -22,8 +22,9 @@ echo $file;
 echo 'br';
 echo $_SERVER['SERVER_NAME'];
 
+
 // header('Location: '."http://" . $_SERVER['SERVER_NAME']. "/SPK_Paket/".$file);
-header('Location: '.$file);
+header('Location: '."http://" . $_SERVER['SERVER_NAME']. "/SPK_Paket/".$file);
 // "http://" . $_SERVER['SERVER_NAME']. "/SPK_Paket/".$file ;
 
 // $file = basename($_GET['file']);
