@@ -169,7 +169,7 @@ if ($result = mysqli_query($link, $sql)) {
                   echo '<input type="hidden" name="batas_bawah_variabel[]" value="' . $data[3] . '"></input><td class="editCell" contenteditable="true">' . $data[3] . '</td>';
                   echo '<input type="hidden" name="batas_atas_variabel[]" value="' . $data[2] . '"></input><td class="editCell" contenteditable="true">' . $data[2] . '</td>';
                   echo '<input type="hidden" name="jenis_variabel[]" value="' . $data[4] . '"></input><td class="editCell"><span class="label label-primary">Variabel Independen</span></td>';
-                  echo '<td><button class="btn btn-danger btn_hapus" type="button">Hapus</button></td>';
+                  // echo '<td><button class="btn btn-danger btn_hapus" type="button">Hapus</button></td>';
                   echo '</tr>';
                 }
               }
@@ -191,7 +191,7 @@ if ($result = mysqli_query($link, $sql)) {
         </div>
 
         <div class="pull-right">
-          <button class="btn btn-info" type="button" data-toggle="modal" data-target="#modalVariabel">TAMBAH VARIABEL</button>
+          <!-- <button class="btn btn-info" type="button" data-toggle="modal" data-target="#modalVariabel">TAMBAH VARIABEL</button> -->
           <button class="btn btn-primary" type="submit">SIMPAN DATA VARIABEL</button>
         </div>
 
