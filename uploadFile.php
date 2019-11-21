@@ -2,10 +2,10 @@
 session_start();
 require_once('db.php');
 // print_r($_FILES);
-// echo ($_FILES['file_upload']['name']);
+echo ($_FILES['file_upload']['name']);
 $namaFile = explode(".",$_FILES['file_upload']['name']);
 $date = date('dmY_his', time());
-$namaFileBaru = 'upload/data_'.$date.".".$namaFile[1];
+$namaFileBaru = 'data_'.$date.".".$namaFile[1];
 // echo "data_".$date.".".$namaFile[1];
 
 move_uploaded_file(
