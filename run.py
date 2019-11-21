@@ -14,7 +14,7 @@ def getKategori():
     conn = ms.connect(user='root', password='bevy2019', host='ec2-34-207-250-194.compute-1.amazonaws.com', database='fuzzymamdani')
     # conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
     cursor = conn.cursor()
-    querySelect = """SELECT * FROM VARIABLES WHERE deleted = 0"""   
+    querySelect = """SELECT * FROM variables WHERE deleted = 0"""   
     cursor.execute(querySelect)
     dataVariabel = []
     dataVariabel.append([])
@@ -45,7 +45,7 @@ def getKategori():
             dataVariabel[1][2].append(row[0])
     
         
-    querySelect = """SELECT C.*, V.jenis FROM CATEGORIES C JOIN VARIABLES V ON C.idVariabel = V.id WHERE V.deleted = 0"""   
+    querySelect = """SELECT C.*, V.jenis FROM categories C JOIN variables V ON C.idVariabel = V.id WHERE V.deleted = 0"""   
     cursor.execute(querySelect)
     
     dataKategori.append([]);
@@ -65,10 +65,11 @@ def getKategori():
     return dataVariabel, dataKategori
     conn.close()
     
-def getRules():    
-    conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
+def getRules():
+    conn = ms.connect(user='root', password='bevy2019', host='ec2-34-207-250-194.compute-1.amazonaws.com', database='fuzzymamdani')
+    # conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
     cursor = conn.cursor()
-    querySelect = """SELECT rule, kategoriHasil, weight, operasi FROM RULES WHERE deleted = 0"""   
+    querySelect = """SELECT rule, kategoriHasil, weight, operasi FROM rules WHERE deleted = 0"""   
     cursor.execute(querySelect)
     dataRules = []
     
