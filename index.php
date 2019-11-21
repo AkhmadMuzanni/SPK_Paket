@@ -47,7 +47,7 @@ if (isset($_POST["inputNama"])) {
   // echo $str_input;
   // shell_exec("python -c \"import training_SVR; print training_SVR.main('jagung')\"";	
   $hasil = shell_exec($str_input);
-  echo $hasil;
+  // echo $hasil;
 }
 
 

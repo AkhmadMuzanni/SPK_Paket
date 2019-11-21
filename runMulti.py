@@ -12,6 +12,12 @@ import mysql.connector as ms
 import pandas as pd
 from datetime import datetime
 
+from openpyxl import Workbook
+from openpyxl import load_workbook
+from itertools import islice
+from openpyxl.cell.cell import WriteOnlyCell
+from openpyxl.utils.dataframe import dataframe_to_rows
+
 def getKategori():    
     conn = ms.connect(user='root', password='bevy2019', host='ec2-34-207-250-194.compute-1.amazonaws.com', database='fuzzymamdani')
     # conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
@@ -238,26 +244,71 @@ def main(value_var_i):
     return idxMax
 
 def run(input_file):
-    df = pd.read_excel(input_file)
-    valuesExcel = df.values
+    #df = pd.read_excel(input_file)
+    #print df.values
     
-    for i in range(len(valuesExcel)):
-        valuesExcel[i][5] = main([valuesExcel[i][1], valuesExcel[i][2]-1, valuesExcel[i][3], valuesExcel[i][4]-1])
-        #print valuesExcel[i][4]
-    
-    data=valuesExcel[:,1:]
-    now = datetime.now()
-    dt_string = now.strftime("%d%m%Y_%H%M%S")
-    dfResult = pd.DataFrame(data=valuesExcel[:,1:])
-    dfResult.columns = ['Vonis', 'Pendidikan', 'Umur', 'Jenis Kelamin', 'Hasil']
-    dfResult = dfResult.astype({"Hasil": int})
-    dfResult = dfResult.astype({"Hasil": str})
-    dfResult = dfResult.replace({'Hasil': {'0': 'Paket 1', '1': 'Paket 2', '2':'Paket 3', '3':'Paket 4'}})
+#    valuesExcel = df.values
+#    
+#    for i in range(len(valuesExcel)):
+#        valuesExcel[i][5] = main([valuesExcel[i][1], valuesExcel[i][2]-1, valuesExcel[i][3], valuesExcel[i][4]-1])
+#        #print valuesExcel[i][4]
+#    
+#    data=valuesExcel[:,1:]
+
+#    dfResult = pd.DataFrame(data=valuesExcel[:,1:])
+#    dfResult.columns = ['Vonis', 'Pendidikan', 'Umur', 'Jenis Kelamin', 'Hasil']
+#    dfResult = dfResult.astype({"Hasil": int})
+#    dfResult = dfResult.astype({"Hasil": str})
+#    dfResult = dfResult.replace({'Hasil': {'0': 'Paket 1', '1': 'Paket 2', '2':'Paket 3', '3':'Paket 4'}})
     #dfResult.rename({0: "adsds", 1: "bdsds", 2: "cdsd", 3: "cdsd", 4: "cdsd"}, axis='columns')
     #print (dfResult)
+    
+    wb = load_workbook(filename = input_file)
+    #print wb.active.values
+    sheet = wb.active
+    #print(sheet['A1'].value)
+    
+    dataA = sheet.values
+    colsA = next(dataA)[1:]
+    dataA = list(dataA)
+    idxA = [r[0] for r in dataA]
+    for i in range(len(dataA)):
+        dataA[i] = list(dataA[i])
+        dataA[i][5] = main([dataA[i][1], dataA[i][2]-1, dataA[i][3], dataA[i][4]-1])
+        dataA[i] = tuple(dataA[i])
+    dataA = (islice(r, 1, None) for r in dataA)
+    dfA = pd.DataFrame(dataA, index=idxA, columns=colsA)
+    #print dfA
+    
+    now = datetime.now()
+    dt_string = now.strftime("%d%m%Y_%H%M%S")
     resultFilename = 'result/result_'+dt_string+'.xlsx'
     
-    dfResult.to_excel(resultFilename, index=False)
+    wbResult = Workbook(write_only=True)
+    wsResult = wbResult.create_sheet()
+    
+    cell = WriteOnlyCell(wsResult)
+    cell.style = 'Pandas'
+    
+    def format_first_row(row, cell):
+        for c in row:
+            cell.value = c
+            yield cell
+    
+    rows = dataframe_to_rows(dfA)
+    first_row = format_first_row(next(rows), cell)
+    wsResult.append(first_row)
+    
+    for row in rows:
+        row = list(row)
+        cell.value = row[0]
+        row[0] = cell
+        wsResult.append(row)
+
+    wbResult.save(resultFilename)
+    
+    #dfResult.to_excel(resultFilename, index=False)
+    #dfA.to_excel(resultFilename, index=False)
     return "/"+resultFilename
 
-#run('templateInput.xlsx')
+run('templateInput.xlsx')
