@@ -19,8 +19,10 @@ $file = shell_exec($str_input);
 
 echo 'proses berhasil<br/>';
 echo $file;
+echo 'br';
+echo $_SERVER['SERVER_NAME'];
 
-header('Location: '."http://" . $_SERVER['SERVER_NAME']. "/SPK_Paket/".$file);
+// header('Location: '."http://" . $_SERVER['SERVER_NAME']. "/SPK_Paket/".$file);
 // "http://" . $_SERVER['SERVER_NAME']. "/SPK_Paket/".$file ;
 
 // $file = basename($_GET['file']);
