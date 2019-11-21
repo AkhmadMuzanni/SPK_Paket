@@ -494,7 +494,8 @@ if (isset($_POST["inputNama"])) {
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
   <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js" type="text/javascript"></script>
+  <!-- <script src="lib/jquery/jquery.min.js" type="text/javascript"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="lib/owlcarousel/owl.carousel.min.js" type="text/javascript"></script>
   <script src="lib/venobox/venobox.min.js" type="text/javascript"></script>
