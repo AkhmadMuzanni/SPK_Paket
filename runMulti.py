@@ -13,7 +13,8 @@ import pandas as pd
 from datetime import datetime
 
 def getKategori():    
-    conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
+    conn = ms.connect(user='root', password='bevy2019', host='http://ec2-34-207-250-194.compute-1.amazonaws.com', database='fuzzymamdani')
+    # conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
     cursor = conn.cursor()
     querySelect = """SELECT * FROM VARIABLES WHERE deleted = 0"""   
     cursor.execute(querySelect)
