@@ -42,12 +42,12 @@ if (isset($_POST["inputJenisKelamin"])) {
 }
 
 if (isset($_POST["inputNama"])) {
-  $str_input = "python -c \"import run; print run.main([" . $_POST["inputVonis"] . "," . $pendidikan . "," . $_POST["inputUmur"]. "," . $jenisKelamin . "])\"";
+  $str_input = "python -c \"import run; print run.main([" . $_POST["inputVonis"] . "," . $pendidikan . "," . $_POST["inputUmur"]. "," . $jenisKelamin . "])\" 2>&1";
   // echo "sukses";
   // echo $str_input;
   // shell_exec("python -c \"import training_SVR; print training_SVR.main('jagung')\"";	
   $hasil = shell_exec($str_input);
-  // echo $hasil;
+  echo $hasil;
 }
 
 
