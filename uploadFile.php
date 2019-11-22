@@ -5,7 +5,7 @@ require_once('db.php');
 echo ($_FILES['file_upload']['name']);
 $namaFile = explode(".",$_FILES['file_upload']['name']);
 $date = date('dmY_his', time());
-$namaFileBaru = 'data_'.$date.".".$namaFile[1];
+$namaFileBaru = 'upload/data_'.$date.".".$namaFile[1];
 // echo "data_".$date.".".$namaFile[1];
 
 move_uploaded_file(
