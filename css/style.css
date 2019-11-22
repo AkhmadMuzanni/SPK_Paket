@@ -2470,3 +2470,25 @@ span.email-notes {
     font-size: x-large;
     text-align: center;
 }
+
+#logo_login {
+    width: 100px;
+}
+
+#user {
+    padding-top: 12px;
+    margin: 0px;
+    color: white;
+    text-align: center;
+}
+
+#btn_logout {
+    padding-top: 0px;
+    padding-bottom: 12px;
+    font-size: 12px;
+    text-align: center;
+}
+
+#btn_logout:hover {
+    color: tomato;
+}

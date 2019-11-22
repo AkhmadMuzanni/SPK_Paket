@@ -79,7 +79,7 @@
                 Licensing information: https://bootstrapmade.com/license/
                 Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
               -->
-              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>, Logo by <a href="https://www.freepik.com/free-photos-vectors/logo">Patrickss - www.freepik.com</a>
               , Created by <a href="https://bootstrapmade.com/">BEVY Digital Dev.</a>
             </div>
           </div>

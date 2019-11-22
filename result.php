@@ -192,7 +192,7 @@
         </div> -->
 
         <div>
-          <form method="post" action="index.php">
+          <form method="post" action="beranda.php">
             <div class="form-row">
               <div class="col-md-6">
                   <div class="form-group">
