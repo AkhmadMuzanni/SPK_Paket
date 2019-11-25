@@ -1,6 +1,6 @@
 <?php
        //ENTER YOUR DATABASE CONNECTION INFO BELOW:
-         $hostname="ec2-34-207-250-194.compute-1.amazonaws.com";
+         $hostname="ec2-54-83-165-147.compute-1.amazonaws.com";
          $database="fuzzymamdani";
          $username="root";
          $password="bevy2019";
