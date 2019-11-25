@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["loginStat"])){
+if (!isset($_SESSION["loginStat"])) {
   header('Location: index.php');
 }
 require_once('db.php');
@@ -41,11 +41,11 @@ if (isset($_POST["inputJenisKelamin"])) {
     $jenisKelamin = 0;
   } else if ($_POST["inputJenisKelamin"] == "2") {
     $jenisKelamin = 1;
-  } 
+  }
 }
 
 if (isset($_POST["inputNama"])) {
-  $str_input = "python -c \"import run; print run.main([" . $_POST["inputVonis"] . "," . $pendidikan . "," . $_POST["inputUmur"]. "," . $jenisKelamin . "])\" 2>&1";
+  $str_input = "python -c \"import run; print run.main([" . $_POST["inputVonis"] . "," . $pendidikan . "," . $_POST["inputUmur"] . "," . $jenisKelamin . "])\" 2>&1";
   // echo "sukses";
   // echo $str_input;
   // shell_exec("python -c \"import training_SVR; print training_SVR.main('jagung')\"";	
@@ -240,7 +240,7 @@ if (isset($_POST["inputNama"])) {
                 </div>
               </div>
               <div class="col-md-6">
-                
+
 
               </div>
 
@@ -366,16 +366,16 @@ if (isset($_POST["inputNama"])) {
           <div class="form-group">
             <label for="outputJenisKelamin">Jenis Kelamin</label>
             <input disabled type="text" class="form-control" id="outputJenisKelamin" placeholder="Jenis Kelamin" value=<?php
-                                                                                                                  if (isset($_POST["inputJenisKelamin"])) {
-                                                                                                                    if ($_POST["inputJenisKelamin"] == "1") {
-                                                                                                                      echo "\"Laki-Laki\"";
-                                                                                                                    } else if ($_POST["inputJenisKelamin"] == "2") {
-                                                                                                                      echo "\"Perempuan\"";
-                                                                                                                    } else {
-                                                                                                                      echo "\"-\"";
-                                                                                                                    }
-                                                                                                                  }
-                                                                                                                  ?>>
+                                                                                                                        if (isset($_POST["inputJenisKelamin"])) {
+                                                                                                                          if ($_POST["inputJenisKelamin"] == "1") {
+                                                                                                                            echo "\"Laki-Laki\"";
+                                                                                                                          } else if ($_POST["inputJenisKelamin"] == "2") {
+                                                                                                                            echo "\"Perempuan\"";
+                                                                                                                          } else {
+                                                                                                                            echo "\"-\"";
+                                                                                                                          }
+                                                                                                                        }
+                                                                                                                        ?>>
           </div>
           <div class="form-group">
             <label for="outputPaket">Rekomendasi Paket</label>
@@ -402,8 +402,23 @@ if (isset($_POST["inputNama"])) {
             </div>
             <div class="caption">
               <h3 class="text-center">Paket 1</h3>
-              <br>
-              <p class="text-justify">Paket ini ditujukan untuk narapidana terorisme dengan tingkat ancaman rendah</p>
+              <p class="text-center">Paket ini terdari dari beberapa komponen</p>
+              <table style="width: 100%;">
+                <tbody style="width: 100%;">
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Life Skill</td>
+                    <td class="col-md-5 text-center">30%</td>
+                  </tr>
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Nasionalisme dan Multikulturalisme</td>
+                    <td class="col-md-5 text-center">30%</td>
+                  </tr>
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Agama</td>
+                    <td class="col-md-5 text-center">40%</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -414,8 +429,23 @@ if (isset($_POST["inputNama"])) {
             </div>
             <div class="caption">
               <h3 class="text-center">Paket 2</h3>
-              <br>
-              <p class="text-justify">Paket ini ditujukan untuk narapidana terorisme dengan tingkat ancaman rendah</p>
+              <p class="text-center">Paket ini terdari dari beberapa komponen</p>
+              <table style="width: 100%;">
+                <tbody style="width: 100%;">
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Life Skill</td>
+                    <td class="col-md-5 text-center">30%</td>
+                  </tr>
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Nasionalisme dan Multikulturalisme</td>
+                    <td class="col-md-5 text-center">40%</td>
+                  </tr>
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Agama</td>
+                    <td class="col-md-5 text-center">30%</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -426,8 +456,23 @@ if (isset($_POST["inputNama"])) {
             </div>
             <div class="caption">
               <h3 class="text-center">Paket 3</h3>
-              <br>
-              <p class="text-justify">Paket ini ditujukan untuk narapidana terorisme dengan tingkat ancaman rendah</p>
+              <p class="text-center">Paket ini terdari dari beberapa komponen</p>
+              <table style="width: 100%;">
+                <tbody style="width: 100%;">
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Life Skill</td>
+                    <td class="col-md-5 text-center">40%</td>
+                  </tr>
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Nasionalisme dan Multikulturalisme</td>
+                    <td class="col-md-5 text-center">40%</td>
+                  </tr>
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Agama</td>
+                    <td class="col-md-5 text-center">20%</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -438,8 +483,23 @@ if (isset($_POST["inputNama"])) {
             </div>
             <div class="caption">
               <h3 class="text-center">Paket 4</h3>
-              <br>
-              <p class="text-justify">Paket ini ditujukan untuk narapidana terorisme dengan tingkat ancaman rendah</p>
+              <p class="text-center">Paket ini terdari dari beberapa komponen</p>
+              <table style="width: 100%;">
+                <tbody style="width: 100%;">
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Life Skill</td>
+                    <td class="col-md-5 text-center">20%</td>
+                  </tr>
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Nasionalisme dan Multikulturalisme</td>
+                    <td class="col-md-5 text-center">40%</td>
+                  </tr>
+                  <tr class="row" style="width: 100%;">
+                    <td class="col-md-7 text-center" style="font-weight: bold;">Agama</td>
+                    <td class="col-md-5 text-center">40%</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -447,9 +507,9 @@ if (isset($_POST["inputNama"])) {
         <div>
         </div>
 
+      </div>
     </div>
   </div>
-                                                                                                      </div>
   <!-- End Service area -->
 
 

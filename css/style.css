@@ -2492,3 +2492,7 @@ span.email-notes {
 #btn_logout:hover {
     color: tomato;
 }
+
+#paket td {
+    padding: 5px;
+}
