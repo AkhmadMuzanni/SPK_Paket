@@ -11,7 +11,7 @@ import matplotlib.pyplot as plot
 import mysql.connector as ms
 
 def getKategori():    
-    conn = ms.connect(user='root', password='bevy2019', host='ec2-34-207-250-194.compute-1.amazonaws.com', database='fuzzymamdani')
+    conn = ms.connect(user='root', password='bevy2019', host='ec2-54-83-165-147.compute-1.amazonaws.com', database='fuzzymamdani')
     # conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
     cursor = conn.cursor()
     querySelect = """SELECT * FROM variables WHERE deleted = 0"""   
@@ -66,7 +66,7 @@ def getKategori():
     conn.close()
     
 def getRules():
-    conn = ms.connect(user='root', password='bevy2019', host='ec2-34-207-250-194.compute-1.amazonaws.com', database='fuzzymamdani')
+    conn = ms.connect(user='root', password='bevy2019', host='ec2-54-83-165-147.compute-1.amazonaws.com', database='fuzzymamdani')
     # conn = ms.connect(user='root', password='', host='localhost', database='fuzzymamdani')
     cursor = conn.cursor()
     querySelect = """SELECT rule, kategoriHasil, weight, operasi FROM rules WHERE deleted = 0"""   
