@@ -54,7 +54,7 @@ def getKategori():
             dataVariabel[1][2].append(row[0])
     
         
-    querySelect = """SELECT C.*, V.jenis FROM categories C JOIN variables V ON C.idVariabel = V.id WHERE V.deleted = 0"""   
+    querySelect = """SELECT C.*, V.jenis FROM categories C JOIN variables V ON C.idVariabel = V.id WHERE V.deleted = 0 and C.deleted = 0"""   
     cursor.execute(querySelect)
     
     dataKategori.append([]);

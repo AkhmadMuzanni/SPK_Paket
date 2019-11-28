@@ -45,7 +45,7 @@ def getKategori():
             dataVariabel[1][2].append(row[0])
     
         
-    querySelect = """SELECT C.*, V.jenis FROM categories C JOIN variables V ON C.idVariabel = V.id WHERE V.deleted = 0"""   
+    querySelect = """SELECT C.*, V.jenis FROM categories C JOIN variables V ON C.idVariabel = V.id WHERE V.deleted = 0 and C.deleted = 0"""   
     cursor.execute(querySelect)
     
     dataKategori.append([]);
@@ -100,6 +100,8 @@ def main(value_var_i):
     arg_kategori_i = kategori[0][1]
     kategori_var_d = kategori[1][0]
     arg_kategori_d = kategori[1][1]
+    
+    
 
 
     # =============================================================================
@@ -170,11 +172,16 @@ def main(value_var_i):
         
     x_var_d = np.arange(range_var_d[0], range_var_d[1], 1);
         
-    for i in range(len(kategori_var_i)):
+    for i in range(len(kategori_var_i)):        
         temp_list = []
-        for j in range(len(kategori_var_i[i])):
+        for j in range(len(kategori_var_i[i])):            
+            # Fuzzyfikasi (nilai x, [batas bawah, tengah, atas])
             temp_list.append(fuzzy.trimf(x_var_i[i], [arg_kategori_i[i][j][0], arg_kategori_i[i][j][1], arg_kategori_i[i][j][2]]))
+            
         fuzzy_f_i.append(temp_list)
+        print(kategori_var_i[i])
+        print(fuzzy_f_i[i])
+        print(len(fuzzy_f_i[i]))
         
     for i in range(len(kategori_var_d)):
         fuzzy_f_d.append(fuzzy.trimf(x_var_d, [arg_kategori_d[i][0], arg_kategori_d[i][1], arg_kategori_d[i][2]]))
@@ -182,9 +189,16 @@ def main(value_var_i):
     member_f = []
     for i in range(len(var_independen)):
         temp_mf = []
-        for j in range(len(fuzzy_f_i[i])):
+        for j in range(len(fuzzy_f_i[i])):            
             temp_mf.append(fuzzy.interp_membership(x_var_i[i], fuzzy_f_i[i][j], value_var_i[i]))
         member_f.append(temp_mf)
+        #print(member_f)
+    
+    #Fungsi member tidak boleh kosong
+    #print("Fungsi Member")
+    #print(member_f)
+    
+    
         
     #active_rule1 = np.amin([MF_vonis_ringan, MF_pendidikan_smp, MF_umur_muda]);        
     active_rules = []
@@ -196,6 +210,9 @@ def main(value_var_i):
             temp_mf.append(member_f[j][rules[i][0][j] - 1])
         active_rules.append(np.amin(temp_mf))
         implikasi_rules.append(np.fmin(np.amin(temp_mf), fuzzy_f_d[rules[i][1] - 1]))
+        
+    #print(rules)
+    #print(implikasi_rules)
 
     aggregated = implikasi_rules[0]
     for i in range(len(implikasi_rules)):
@@ -216,4 +233,4 @@ def main(value_var_i):
     #print paket
     return kategori_var_d[idxMax]
 
-#print main([20,2,20,0])
+#print main([17,1,17,0])
